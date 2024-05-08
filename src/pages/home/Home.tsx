@@ -59,7 +59,7 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <div>
+      <div className="category-wrapper">
         {Categories &&
           Categories?.map(({ type, description, id }) => (
             <CardItem type={type} description={description} key={id} />

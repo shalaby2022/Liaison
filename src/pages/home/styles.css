@@ -1,12 +1,11 @@
 .nav-bar {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
 .header-wrapper {
-  flex: 1.2;
+  /* flex: 1.2; */
 }
 
 .header-title {
@@ -21,7 +20,11 @@
 }
 
 .buttons-wrapper {
-  flex: 1.6;
+}
+
+.category-wrapper {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
 }

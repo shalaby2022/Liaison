@@ -2,11 +2,13 @@ import { Dispatch } from "redux";
 import { ActionTypes } from "../actionTypes";
 import { fetchPost } from "../../services/home";
 
-export interface IPOST {
+export interface IProduct {
   id: number;
-  user_id: number;
   title: string;
-  body: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
 }
 
 interface ListFetchingStart {
@@ -15,7 +17,7 @@ interface ListFetchingStart {
 
 interface ListFetched {
   type: ActionTypes.LIST_FETCHED;
-  payload: IPOST[];
+  payload: IProduct[];
 }
 
 interface ListFetchingEnd {

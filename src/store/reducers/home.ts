@@ -1,16 +1,16 @@
 import { ActionTypes } from "../actionTypes";
-import { HomeAction, IPOST } from "../actions/home";
+import { HomeAction, IProduct } from "../actions/home";
 
 export interface IhomeState {
   loading_posts: boolean;
-  posts: IPOST[];
-  posts_error: string;
+  products: IProduct[];
+  error: string;
 }
 
 const initialState: IhomeState = {
   loading_posts: false,
-  posts: [],
-  posts_error: "",
+  products: [],
+  error: "",
 };
 
 export const homeReducer = (
@@ -21,9 +21,9 @@ export const homeReducer = (
     case ActionTypes.LIST_LOADING_START:
       return { ...state, loading_posts: true };
     case ActionTypes.LIST_FETCHED:
-      return { ...state, loading_posts: false, posts: action.payload };
+      return { ...state, loading_posts: false, products: action.payload };
     case ActionTypes.LIST_LOADING_ERROR:
-      return { ...state, loading_posts: false, posts_error: action.payload };
+      return { ...state, loading_posts: false, error: action.payload };
     default:
       return state;
   }

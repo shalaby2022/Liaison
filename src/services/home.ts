@@ -1,12 +1,10 @@
 import axios from "axios";
-import { IPOST } from "../store/actions/home";
+import { IProduct } from "../store/actions/home";
 
-export const fetchPost = async (id?: number) => {
-  const url = id
-    ? `${"https://gorest.co.in/public/v2"}/posts?id=${id}`
-    : `${"https://gorest.co.in/public/v2"}/posts`;
+export const fetchPost = async (category?: string) => {
+  const url = `${"https://fakestoreapi.com/products/category/"}${category}`;
 
-  return await axios<IPOST[]>({
+  return await axios<IProduct[]>({
     method: "GET",
     url,
   });
