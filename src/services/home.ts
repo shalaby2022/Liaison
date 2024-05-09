@@ -1,7 +1,7 @@
 import axios from "axios";
-import { IProduct } from "../store/actions/home";
+import { IProduct, categoryArgument } from "../store/actions/home";
 
-export const fetchPost = async (category?: string) => {
+export const fetchProducts = async (category: categoryArgument) => {
   const url = `${"https://fakestoreapi.com/products/category/"}${category}`;
 
   return await axios<IProduct[]>({

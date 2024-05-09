@@ -9,20 +9,19 @@ import { getHomeList } from "../../store/actions/home";
 import { Categories } from "./Categories";
 
 const Home: React.FC = () => {
-  const [clickedButton, setClickedButton] = useState<number>(1);
+  const [clickedButton, setClickedButton] = useState<string | null>(null);
 
-  const handleClick = (buttonId: number) => {
-    setClickedButton(buttonId);
+  const handleClick = (category: string) => {
+    setClickedButton(category);
+    dispatch(getHomeList(category));
   };
 
-  const { loading_posts, posts, posts_error } = useAppSelector(
-    (state) => state.home
-  );
+  const { isLoading, products, error } = useAppSelector((state) => state.home);
 
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getHomeList());
+    dispatch(getHomeList(clickedButton));
   }, []);
 
   return (
@@ -38,33 +37,52 @@ const Home: React.FC = () => {
         <div className="buttons-wrapper">
           <CustomButton
             title={"electronics"}
-            onClick={() => handleClick(1)}
-            isClicked={clickedButton === 1}
+            onClick={() => handleClick("electronics")}
+            isClicked={clickedButton === "electronics"}
           />
           <CustomButton
             title={"jewelery"}
-            onClick={() => handleClick(2)}
-            isClicked={clickedButton === 2}
+            onClick={() => handleClick("jewelery")}
+            isClicked={clickedButton === "jewelery"}
           />
           <CustomButton
             title={"men's clothing"}
-            onClick={() => handleClick(3)}
-            isClicked={clickedButton === 3}
+            onClick={() => handleClick("men's clothing")}
+            isClicked={clickedButton === "men's clothing"}
           />
           <CustomButton
             title={"women's clothing"}
-            onClick={() => handleClick(4)}
-            isClicked={clickedButton === 4}
+            onClick={() => handleClick("women's clothing")}
+            isClicked={clickedButton === "women's clothing"}
           />
         </div>
       </div>
 
       <div className="category-wrapper">
-        {Categories &&
+        {!isLoading &&
+          products?.length === 0 &&
+          Categories &&
           Categories?.map(({ type, description, id }) => (
-            <CardItem type={type} description={description} key={id} />
+            <CardItem title={type} description={description} key={id} />
           ))}
       </div>
+
+      <div className="category-wrapper">
+        {!isLoading &&
+          products?.length > 0 &&
+          products?.map(({ title, description, id, image }) => (
+            <CardItem
+              title={title}
+              description={description}
+              key={id}
+              image={image}
+            />
+          ))}
+      </div>
+
+      <div>{isLoading && <div className="loading">Loading...</div>}</div>
+
+      <div>{error && <div className="loading">{error}</div>}</div>
     </div>
   );
 };

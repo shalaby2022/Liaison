@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { ActionTypes } from "../actionTypes";
-import { fetchPost } from "../../services/home";
+import { fetchProducts } from "../../services/home";
 
 export interface IProduct {
   id: number;
@@ -27,11 +27,13 @@ interface ListFetchingEnd {
 
 export type HomeAction = ListFetchingStart | ListFetched | ListFetchingEnd;
 
-export const getHomeList = () => {
+export type categoryArgument = string | null;
+
+export const getHomeList = (category: categoryArgument) => {
   return async (dispatch: Dispatch<HomeAction>) => {
     try {
       dispatch({ type: ActionTypes.LIST_LOADING_START });
-      const postsResponse = await fetchPost();
+      const postsResponse = await fetchProducts(category);
 
       dispatch({
         type: ActionTypes.LIST_FETCHED,
